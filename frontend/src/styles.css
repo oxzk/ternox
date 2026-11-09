@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-[#191a21] text-zinc-200 antialiased;
+}
+
+/* xterm 深色滚动条 */
+.xterm .xterm-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  @apply rounded bg-zinc-700;
+}
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- 黑客风背景层（Backdrop 组件复用） ---------- */
+
+/* 背景网格 */
+.hacker-grid {
+  background-image:
+    linear-gradient(rgba(0, 255, 140, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 140, 0.6) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+/* CRT 扫描线（单层，用于叠加在内容之上） */
+.crt-lines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.16) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* 点阵网格背景（Dracula 登录页） */
+.login-dots {
+  background-image: radial-gradient(
+    rgba(248, 248, 242, 0.16) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+}
+
+/* 紫色荧光文字（Dracula 登录页 LOGO） */
+.login-glow-purple {
+  text-shadow: 0 0 14px rgba(189, 147, 249, 0.35);
+}
+
+.login-glow-red {
+  text-shadow: 0 0 6px rgba(248, 113, 113, 0.5);
+}
+
+/* 认证失败抖动 */
+.login-shake {
+  animation: login-shake 0.3s;
+}
+
+@keyframes login-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}

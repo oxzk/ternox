@@ -1,0 +1,44 @@
+[package]
+name = "ternox"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.71"
+description = "Ternox - minimal self-hosted web terminal"
+
+[dependencies]
+# Web 框架：关闭 default-features，仅启用实际用到的能力
+axum = { version = "0.7", default-features = false, features = ["http1", "json", "tokio", "ws"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync", "signal"] }
+futures-util = "0.3"
+
+# 本地开发：自动读取 .env（已存在的环境变量优先）
+dotenvy = "0.15"
+
+# PTY
+portable-pty = "0.9"
+
+# 序列化
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# 认证：UUID / OS 安全随机数 / SHA-256 / 常量时间比较
+uuid = { version = "1", default-features = false, features = ["std", "v4"] }
+getrandom = "0.2"
+sha2 = "0.10"
+subtle = "2"
+thiserror = "1"
+
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# 前端静态资源嵌入
+rust-embed = { version = "8", features = ["interpolate-folder-path"] }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[profile.release]
+lto = "thin"
+strip = true
+codegen-units = 1
